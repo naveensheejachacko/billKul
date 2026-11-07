@@ -246,6 +246,15 @@ input[type="checkbox"] { width: 16px; height: 16px; margin: 2px 0 0; accent-colo
 .page-head { margin-bottom: 28px; }
 .page-head h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.015em; }
 .page-head p { color: var(--ink-2); margin-top: 4px; }
+.page-head .page-title { font-size: 22px; font-weight: 600; letter-spacing: -0.015em; }
+.hero { padding: 4px 0 30px; margin-bottom: 30px; border-bottom: 1px solid var(--line); }
+.hero h1 { font-size: 30px; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; max-width: 720px; }
+.hero p { margin-top: 10px; max-width: 700px; font-size: 15.5px; line-height: 1.6; color: var(--ink-2); }
+.hero-links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; }
+.hero-links a { color: var(--accent); text-underline-offset: 3px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 6px 18px; width: 100%; }
+.footer-links a { color: var(--ink-2); text-decoration: none; }
+.footer-links a:hover { color: var(--ink); text-decoration: underline; }
 .page-head.with-action { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
 
 .footer {

@@ -69,7 +69,7 @@ export default function App() {
         </a>
       </header>
 
-      {(!storageOk || !hasProfile) && (
+      {(!storageOk || (!hasProfile && tab !== "profile")) && (
         <div className="notices no-print">
           {!storageOk && (
             <p className="notice is-error">
@@ -83,9 +83,6 @@ export default function App() {
                 Add them
               </button>
             </p>
-          )}
-          {!hasProfile && tab === "profile" && (
-            <p className="notice">Start with your details. You only do this once, and they never leave this browser.</p>
           )}
         </div>
       )}
@@ -122,6 +119,21 @@ export default function App() {
           )}
           {tab === "profile" && (
             <>
+              {!hasProfile && (
+                <section className="hero">
+                  <h1>Free GST invoice and bill generator for freelancers</h1>
+                  <p>
+                    Fill in your details once, then make proper tax invoices in a couple of minutes: CGST + SGST or IGST
+                    worked out from the GSTIN, export invoices under LUT, and a UPI QR so clients pay the exact amount. No
+                    sign-up, and nothing you type leaves this browser.
+                  </p>
+                  <p className="hero-links">
+                    <a href="/gst-invoice-format/">See sample invoices</a>
+                    <a href="/gst-calculator/">GST calculator</a>
+                    <a href="/gstin-validator/">GSTIN checker</a>
+                  </p>
+                </section>
+              )}
               <ProfileForm data={data} onChange={setData} />
               {hasProfile && (
                 <div className="page-end">
@@ -137,6 +149,12 @@ export default function App() {
 
       {tab !== "editor" && (
         <footer className="footer no-print">
+          <nav className="footer-links" aria-label="Tools and guides">
+            <a href="/gst-calculator/">GST calculator</a>
+            <a href="/gstin-validator/">GSTIN checker</a>
+            <a href="/gst-invoice-format/">GST invoice format</a>
+            <a href="/export-invoice-lut/">Export invoices under LUT</a>
+          </nav>
           <span>
             Free and{" "}
             <a href={REPO_URL} target="_blank" rel="noreferrer">

@@ -4,6 +4,8 @@
 
 **Try it: [bill-kul.vercel.app](https://bill-kul.vercel.app)**
 
+Free tools on the site: [GST calculator](https://bill-kul.vercel.app/gst-calculator/) · [GSTIN checker](https://bill-kul.vercel.app/gstin-validator/) · [GST invoice format guide](https://bill-kul.vercel.app/gst-invoice-format/) · [Export invoices under LUT](https://bill-kul.vercel.app/export-invoice-lut/)
+
 <a href="https://buymeacoffee.com/naveensheejachacko"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-☕-ffdd00?style=for-the-badge" alt="Buy me a coffee"></a>
 
 ## What it does

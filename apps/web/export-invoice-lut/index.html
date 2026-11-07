@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Export Invoice Under LUT for Services: Format and Declaration | BillKul</title>
+    <meta
+      name="description"
+      content="How Indian freelancers invoice foreign clients without charging GST: what an LUT is, the five conditions for export of services, the declaration to print, and a free export invoice generator."
+    />
+    <!--site-head-->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Export invoice under LUT for services",
+        "description": "How to invoice foreign clients from India without charging GST, using a Letter of Undertaking.",
+        "inLanguage": "en-IN",
+        "datePublished": "2026-11-07",
+        "dateModified": "2026-11-07",
+        "author": { "@type": "Organization", "name": "BillKul" },
+        "publisher": { "@type": "Organization", "name": "BillKul" },
+        "mainEntityOfPage": "https://bill-kul.vercel.app/export-invoice-lut/"
+      }
+    </script>
+  </head>
+  <body>
+    <div class="site">
+      <!--site-header:export-invoice-lut-->
+      <main class="article">
+        <h1>Export invoice under LUT for services</h1>
+        <p class="lede">
+          Working for clients abroad? With a Letter of Undertaking you can invoice them with zero GST. Here's what that
+          takes and what the invoice has to say.
+        </p>
+
+        <h2>What is an LUT?</h2>
+        <p>
+          A <strong>Letter of Undertaking (LUT)</strong> is a declaration you file on the GST portal, in form
+          <strong>GST RFD-11</strong>, saying you'll meet the export rules. Once it's accepted, you can export services
+          <strong>without paying IGST</strong>. Without an LUT you'd charge 18% IGST, pay it, and then wait for a refund.
+        </p>
+        <ul>
+          <li>Filed online on the GST portal, under Services → User Services → Furnish Letter of Undertaking (LUT).</li>
+          <li>No fee, and you get an ARN (acknowledgement number) straight away.</li>
+          <li>Valid for one financial year. File a new one each April.</li>
+        </ul>
+
+        <h2>When does work count as an export of services?</h2>
+        <p>Section 2(6) of the IGST Act sets five conditions. All of them must hold:</p>
+        <ol>
+          <li>You, the supplier, are located in India.</li>
+          <li>Your client is located outside India.</li>
+          <li>The place of supply is outside India.</li>
+          <li>You are paid in convertible foreign exchange, or in rupees where the RBI allows it.</li>
+          <li>You and the client aren't just two branches of the same entity.</li>
+        </ol>
+        <p>
+          For most remote work, like software, design, writing or consulting for a foreign company, the place of supply is
+          the client's location, so condition 3 follows from condition 2. Some services, such as those tied to property
+          or events in India, have different rules, so check those with your CA.
+        </p>
+
+        <h2>What to print on an export invoice</h2>
+        <p>Everything a normal <a href="/gst-invoice-format/">GST tax invoice</a> needs, plus:</p>
+        <ul>
+          <li>
+            The declaration, in words like <strong>“Supply meant for export under LUT without payment of integrated
+            tax”</strong>, ideally with your LUT ARN.
+          </li>
+          <li>The client's name and full address, including the <strong>country</strong>.</li>
+          <li>IGST shown as 0%, or left out, with the place of supply shown as outside India.</li>
+        </ul>
+        <div class="samples">
+          <figure>
+            <img src="/samples/3-minimal-export-lut.webp" width="760" height="1074" loading="lazy"
+              alt="Sample export of services invoice under LUT with the declaration and zero IGST" />
+            <figcaption>A sample export invoice made with BillKul: 0% IGST, the declaration and the LUT ARN.</figcaption>
+          </figure>
+          <div>
+            <h3 class="flush">Making one in BillKul</h3>
+            <ol>
+              <li>Add your GSTIN and LUT ARN in <em>Your details</em>.</li>
+              <li>In the invoice, set the client to <em>Outside India</em> and enter the country.</li>
+              <li>Tick <em>Export under LUT</em>. GST drops to 0% and the declaration is printed for you.</li>
+            </ol>
+            <p>
+              BillKul prints amounts in rupees. If you agreed a price in dollars or euros, mention it and the exchange
+              rate in the notes.
+            </p>
+          </div>
+        </div>
+
+        <h2>Questions</h2>
+        <div class="faq">
+          <details>
+            <summary>Do I need GST registration to export services?</summary>
+            <p>
+              Exports count as inter-state supplies. Service providers whose turnover is below the ₹20 lakh threshold are
+              generally not required to register just because they export, but you need a GSTIN to file an LUT. If you
+              aren't registered, you simply invoice without GST. Check your situation with a CA.
+            </p>
+          </details>
+          <details>
+            <summary>What happens if I forget to renew the LUT?</summary>
+            <p>
+              An LUT covers one financial year. Exports after it lapses would need IGST paid and refunded later, so file
+              the new one at the start of each April.
+            </p>
+          </details>
+          <details>
+            <summary>Do I still report exports in my GST returns?</summary>
+            <p>
+              Yes. Zero-rated exports are reported in GSTR-1 and GSTR-3B even though no tax is charged on them.
+            </p>
+          </details>
+          <details>
+            <summary>Can I invoice a foreign client in dollars?</summary>
+            <p>
+              Many freelancers state the foreign currency amount on the invoice along with the rupee value. Keep the bank's
+              foreign inward remittance advice as proof that you were paid in foreign exchange.
+            </p>
+          </details>
+        </div>
+
+        <div class="cta-box">
+          <p><strong>Invoice your foreign client</strong>Zero-rated, with the declaration and your LUT ARN filled in.</p>
+          <a class="btn btn-primary" href="/">Create an export invoice</a>
+        </div>
+      </main>
+      <!--site-footer-->
+    </div>
+    <script type="module" src="/src/site/content.ts"></script>
+  </body>
+</html>

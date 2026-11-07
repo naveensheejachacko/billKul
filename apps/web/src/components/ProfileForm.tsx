@@ -81,7 +81,7 @@ export function ProfileForm({ data, onChange }: Props) {
   return (
     <div className="settings">
       <header className="page-head">
-        <h1>Your details</h1>
+        <h2 className="page-title">Your details</h2>
         <p>Saved in this browser and printed on every invoice. Changes save as you type.</p>
       </header>
 

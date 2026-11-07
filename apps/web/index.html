@@ -1,18 +1,49 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free GST Invoice &amp; Bill Generator for Freelancers in India | BillKul</title>
     <meta
       name="description"
-      content="Free GST invoice generator for Indian freelancers. CGST/SGST/IGST, export under LUT, UPI QR on every invoice. Runs in your browser, nothing is uploaded."
+      content="Create GST invoices and bills online in two minutes. CGST + SGST or IGST worked out from the GSTIN, export invoices under LUT, a UPI QR for payment and a PDF download. Free, no sign-up."
     />
-    <meta name="theme-color" content="#fbfaf8" />
-    <title>BillKul: GST invoices for freelancers</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!--site-head-->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "BillKul",
+        "url": "https://bill-kul.vercel.app/",
+        "description": "Free GST invoice and bill generator for Indian freelancers and small businesses. Works out CGST, SGST and IGST, supports export invoices under LUT and prints a UPI QR code for payment.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any (runs in the browser)",
+        "inLanguage": "en-IN",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+        "featureList": [
+          "GST tax invoice with CGST + SGST, UTGST or IGST",
+          "Export of services under LUT with the required declaration",
+          "Invoice for freelancers not registered under GST",
+          "GSTIN validation with checksum",
+          "UPI QR code with the invoice amount",
+          "PDF download, four invoice designs, your logo"
+        ]
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <noscript>
+        <h1>Free GST invoice and bill generator for freelancers</h1>
+        <p>
+          BillKul makes GST tax invoices in your browser: CGST + SGST or IGST from the GSTIN, export invoices under LUT
+          and a UPI QR code. Please enable JavaScript to use it. You can also read the
+          <a href="/gst-invoice-format/">GST invoice format guide</a>, use the
+          <a href="/gst-calculator/">GST calculator</a> or the <a href="/gstin-validator/">GSTIN checker</a>.
+        </p>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

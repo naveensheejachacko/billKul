@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSTIN Checker: Validate a GST Number Format and Check Digit Free | BillKul</title>
+    <meta
+      name="description"
+      content="Check a GSTIN before you put it on an invoice. Verifies the 15-character format and check digit, and shows the state, PAN and entity type inside the GST number. Free, instant, private."
+    />
+    <!--site-head-->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "GSTIN Checker by BillKul",
+        "url": "https://bill-kul.vercel.app/gstin-validator/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any (runs in the browser)",
+        "inLanguage": "en-IN",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="site">
+      <!--site-header:gstin-validator-->
+      <main class="article">
+        <h1>GSTIN checker</h1>
+        <p class="lede">
+          Paste a GST number to check it is typed correctly. You'll see the state, the PAN and what each of the 15
+          characters means.
+        </p>
+
+        <section class="tool-card" aria-label="GSTIN checker">
+          <label class="field">
+            <span class="field-label">GSTIN</span>
+            <input
+              id="gstin"
+              class="mono"
+              maxlength="20"
+              placeholder="29AAFCN7312K1Z6"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+            />
+          </label>
+          <p id="verdict" class="verdict is-wait" aria-live="polite">Enter a 15-character GSTIN.</p>
+          <div class="data-table-wrap" id="parts-wrap" hidden>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Characters</th>
+                  <th>Value</th>
+                  <th>Meaning</th>
+                </tr>
+              </thead>
+              <tbody id="parts"></tbody>
+            </table>
+          </div>
+          <div class="tool-foot">
+            <span class="field-msg">Checked in your browser. The number is not sent anywhere.</span>
+            <button type="button" class="btn" id="example">Try an example</button>
+          </div>
+        </section>
+
+        <p class="callout">
+          This check catches typos, wrong lengths and invented numbers, which covers most invoice mistakes. It cannot tell
+          you whether a registration is <em>active</em> or who it belongs to. For that, use “Search Taxpayer” on the
+          official GST portal at <a href="https://services.gst.gov.in/services/searchtp" rel="nofollow">services.gst.gov.in</a>.
+        </p>
+
+        <h2>What the 15 characters of a GSTIN mean</h2>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Position</th>
+                <th>Example</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1–2</td><td class="mono">29</td><td>State code, where the business is registered (29 is Karnataka, 27 Maharashtra, 32 Kerala).</td></tr>
+              <tr><td>3–12</td><td class="mono">AAFCN7312K</td><td>The PAN of the business or person. Its 4th letter shows the type: C company, P individual, F firm or LLP, H HUF, T trust.</td></tr>
+              <tr><td>13</td><td class="mono">1</td><td>Entity number: how many GST registrations this PAN has in the same state (1 for the first, then 2–9, then A–Z).</td></tr>
+              <tr><td>14</td><td class="mono">Z</td><td>Fixed as “Z” for regular taxpayers.</td></tr>
+              <tr><td>15</td><td class="mono">6</td><td>Check character, calculated from the first 14. A single typo almost always makes it wrong.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Why check a GSTIN before invoicing?</h2>
+        <p>
+          A wrong GSTIN on a B2B invoice means your client can't claim input tax credit, and the invoice usually has to be
+          cancelled or amended. The state code also decides whether you charge CGST + SGST or IGST, so a typo there puts
+          the wrong tax on the bill.
+        </p>
+        <p>
+          <a href="/">BillKul's invoice maker</a> runs this same check as you type the client's GSTIN and picks the right
+          tax automatically.
+        </p>
+
+        <h2>Questions</h2>
+        <div class="faq">
+          <details>
+            <summary>How is the GSTIN check character calculated?</summary>
+            <p>
+              Each of the first 14 characters is turned into a number (0–9 stay as they are, A–Z become 10–35). Numbers in
+              even positions are doubled, each product is split into a quotient and remainder by 36 and added up, and the
+              check character is whatever brings the sum to a multiple of 36.
+            </p>
+          </details>
+          <details>
+            <summary>Can a valid-looking GSTIN still be wrong?</summary>
+            <p>
+              Yes. The check confirms the number is well formed, not that it was ever issued or is still active. Search it
+              on the GST portal if you need to confirm the registration.
+            </p>
+          </details>
+          <details>
+            <summary>Is a GSTIN the same as a PAN?</summary>
+            <p>
+              No, but every GSTIN contains a PAN in characters 3 to 12. One PAN can have several GSTINs: one per state
+              where the business is registered, and more than one in a state if it has separate registrations there.
+            </p>
+          </details>
+        </div>
+
+        <div class="cta-box">
+          <p><strong>Invoice this client next?</strong>Paste their GSTIN and BillKul fills in the state and the right GST.</p>
+          <a class="btn btn-primary" href="/">Create a free invoice</a>
+        </div>
+      </main>
+      <!--site-footer-->
+    </div>
+    <script type="module" src="/src/site/gstin.ts"></script>
+  </body>
+</html>
