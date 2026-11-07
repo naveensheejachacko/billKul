@@ -1,11 +1,27 @@
 import type { Client } from "@billkul/core";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Mark } from "./components/Fields";
-import { InvoiceEditor, newDraft } from "./components/InvoiceEditor";
-import { InvoiceList } from "./components/InvoiceList";
+import { Loader, ReadySignal } from "./components/Loader";
 import { ProfileForm } from "./components/ProfileForm";
 import { BMC_URL, REPO_URL } from "./config";
+import { newDraft } from "./drafts";
 import { loadData, saveData, type AppData, type StoredInvoice } from "./storage";
+
+// The editor (with its four invoice designs and the QR library) and the invoice
+// list load on demand, so the first screen appears sooner. They're also fetched
+// in the background once the app is idle, so switching is usually instant.
+const loadEditor = () => import("./components/InvoiceEditor");
+const loadList = () => import("./components/InvoiceList");
+const InvoiceEditor = lazy(() => loadEditor().then((m) => ({ default: m.InvoiceEditor })));
+const InvoiceList = lazy(() => loadList().then((m) => ({ default: m.InvoiceList })));
+
+function preloadScreens() {
+  const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1500));
+  idle(() => {
+    void loadEditor();
+    void loadList();
+  });
+}
 
 type Tab = "editor" | "invoices" | "profile";
 
@@ -26,6 +42,7 @@ export default function App() {
   const [editorKey, setEditorKey] = useState(0);
 
   useEffect(() => setStorageOk(saveData(data)), [data]);
+  useEffect(preloadScreens, []);
 
   const openEditor = (inv: StoredInvoice | null) => {
     setEditing(inv);
@@ -88,37 +105,44 @@ export default function App() {
       )}
 
       {tab === "editor" && (
-        <InvoiceEditor
-          key={editorKey}
-          data={data}
-          initial={editing}
-          onSave={saveInvoice}
-          onNew={() => openEditor(null)}
-          onDesignChange={(patch) => setData((d) => ({ ...d, design: { ...d.design, ...patch } }))}
-        />
+        <Suspense fallback={<Loader label="Opening the editor" />}>
+          <InvoiceEditor
+            key={editorKey}
+            data={data}
+            initial={editing}
+            onSave={saveInvoice}
+            onNew={() => openEditor(null)}
+            onDesignChange={(patch) => setData((d) => ({ ...d, design: { ...d.design, ...patch } }))}
+          />
+          <ReadySignal />
+        </Suspense>
       )}
 
       {tab !== "editor" && (
         <main className="page">
           {tab === "invoices" && (
-            <InvoiceList
-              invoices={data.invoices}
-              onNew={() => openEditor(null)}
-              onOpen={openEditor}
-              onDuplicate={(inv) =>
-                openEditor(newDraft(data, { client: inv.client, items: inv.items, notes: inv.notes, lut: inv.lut }))
-              }
-              onDelete={(inv) => setData((d) => ({ ...d, invoices: d.invoices.filter((i) => i.id !== inv.id) }))}
-              onTogglePaid={(inv) =>
-                setData((d) => ({
-                  ...d,
-                  invoices: d.invoices.map((i) => (i.id === inv.id ? { ...i, paid: !i.paid } : i)),
-                }))
-              }
-            />
+            <Suspense fallback={<Loader label="Loading your invoices" />}>
+              <ReadySignal />
+              <InvoiceList
+                invoices={data.invoices}
+                onNew={() => openEditor(null)}
+                onOpen={openEditor}
+                onDuplicate={(inv) =>
+                  openEditor(newDraft(data, { client: inv.client, items: inv.items, notes: inv.notes, lut: inv.lut }))
+                }
+                onDelete={(inv) => setData((d) => ({ ...d, invoices: d.invoices.filter((i) => i.id !== inv.id) }))}
+                onTogglePaid={(inv) =>
+                  setData((d) => ({
+                    ...d,
+                    invoices: d.invoices.map((i) => (i.id === inv.id ? { ...i, paid: !i.paid } : i)),
+                  }))
+                }
+              />
+            </Suspense>
           )}
           {tab === "profile" && (
             <>
+              <ReadySignal />
               {!hasProfile && (
                 <section className="hero">
                   <h1>Free GST invoice and bill generator for freelancers</h1>

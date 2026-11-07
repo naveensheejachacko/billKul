@@ -10,12 +10,11 @@ interface Props {
   inv: Invoice;
   c: ComputedInvoice;
   design: Design;
-  showBranding: boolean;
 }
 
 const LOGO_HEIGHT = { s: "40px", m: "52px", l: "68px" };
 
-export function InvoicePreview({ inv, c, design, showBranding }: Props) {
+export function InvoicePreview({ inv, c, design }: Props) {
   const v = useInvoiceView(inv, c, design);
   const Template = TEMPLATES[design.template] ?? TEMPLATES.classic;
   const style = {
@@ -24,5 +23,5 @@ export function InvoicePreview({ inv, c, design, showBranding }: Props) {
     "--brand-text": brandTextColor(design.color),
     "--logo-h": LOGO_HEIGHT[design.logoSize] ?? LOGO_HEIGHT.m,
   } as CSSProperties;
-  return <Template v={v} showBranding={showBranding} style={style} />;
+  return <Template v={v} style={style} />;
 }

@@ -35,15 +35,19 @@ export function ProfileForm({ data, onChange }: Props) {
   const logoRef = useRef<HTMLInputElement>(null);
   const [importMsg, setImportMsg] = useState<string | null>(null);
   const [logoError, setLogoError] = useState<string | null>(null);
+  const [logoBusy, setLogoBusy] = useState(false);
   const logo = data.design.logo;
 
   async function uploadLogo(file: File) {
+    setLogoBusy(true);
     try {
       const processed = await processLogo(file);
       setLogoError(null);
       onChange({ ...data, design: { ...data.design, logo: processed } });
     } catch (e) {
       setLogoError(e instanceof Error ? e.message : "Couldn't use that image.");
+    } finally {
+      setLogoBusy(false);
     }
   }
 
@@ -95,8 +99,8 @@ export function ProfileForm({ data, onChange }: Props) {
               </div>
               <div className="logo-side">
                 <div className="btn-row">
-                  <button className="btn" type="button" onClick={() => logoRef.current?.click()}>
-                    {logo ? "Replace" : "Upload logo"}
+                  <button className="btn" type="button" disabled={logoBusy} onClick={() => logoRef.current?.click()}>
+                    {logoBusy ? "Adding logo…" : logo ? "Replace" : "Upload logo"}
                   </button>
                   {logo && (
                     <button className="btn-text" type="button" onClick={removeLogo}>
@@ -235,17 +239,6 @@ export function ProfileForm({ data, onChange }: Props) {
               onChange={(e) => setSettings({ defaultGstRate: e.target.valueAsNumber || 0 })}
             />
           </Field>
-          <label className="check span-2">
-            <input
-              type="checkbox"
-              checked={data.settings.showBranding}
-              onChange={(e) => setSettings({ showBranding: e.target.checked })}
-            />
-            <span>
-              Print “Made with BillKul” in small type at the bottom
-              <small>It's how other freelancers find this tool. Turn it off anytime.</small>
-            </span>
-          </label>
         </div>
       </Row>
 

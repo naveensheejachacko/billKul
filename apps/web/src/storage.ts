@@ -11,8 +11,6 @@ export interface Settings {
   defaultSac: string;
   defaultGstRate: number;
   dueDays: number;
-  /** Small "Made with BillKul" line at the bottom of invoices */
-  showBranding: boolean;
 }
 
 export type TemplateId = "classic" | "modern" | "minimal" | "boxed";
@@ -51,7 +49,7 @@ export function emptyData(): AppData {
     supplier: { name: "" },
     clients: [],
     invoices: [],
-    settings: { prefix: "INV", defaultSac: "998314", defaultGstRate: 18, dueDays: 15, showBranding: true },
+    settings: { prefix: "INV", defaultSac: "998314", defaultGstRate: 18, dueDays: 15 },
     design: { template: "classic", color: "#1a1917", header: "logo", logoSize: "m" },
   };
 }
@@ -74,7 +72,7 @@ function normalize(x: any): AppData {
     supplier: { ...base.supplier, ...(x?.supplier ?? {}) },
     clients: Array.isArray(x?.clients) ? x.clients : [],
     invoices: Array.isArray(x?.invoices) ? x.invoices : [],
-    settings: { ...base.settings, ...(x?.settings ?? {}) },
+    settings: (({ showBranding: _old, ...rest }) => ({ ...base.settings, ...rest }))(x?.settings ?? {}),
     design,
   };
 }

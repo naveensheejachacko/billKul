@@ -11,8 +11,8 @@ import {
 } from "@billkul/core";
 import { useEffect, useMemo, useState } from "react";
 import { BMC_URL } from "../config";
-import { addDays, todayIso } from "../dates";
-import { newId, type AppData, type Design, type StoredInvoice } from "../storage";
+import { blankItem, newDraft } from "../drafts";
+import type { AppData, Design, StoredInvoice } from "../storage";
 import { CloseIcon, Field, GstinField, Segmented, StateSelect } from "./Fields";
 import { HEADER_OPTIONS, LayoutIcon } from "./invoice/layoutIcons";
 import { COLOR_PRESETS, TEMPLATE_OPTIONS } from "./invoice/templates";
@@ -25,27 +25,6 @@ interface Props {
   onSave: (inv: StoredInvoice) => void;
   onNew: () => void;
   onDesignChange: (patch: Partial<Design>) => void;
-}
-
-export function newDraft(data: AppData, base?: Partial<StoredInvoice>): StoredInvoice {
-  const date = todayIso();
-  const { settings } = data;
-  return {
-    id: newId(),
-    number: nextInvoiceNumber(settings.prefix, date, data.invoices.map((i) => i.number)),
-    date,
-    dueDate: settings.dueDays > 0 ? addDays(date, settings.dueDays) : undefined,
-    supplier: data.supplier,
-    client: { name: "" },
-    items: [blankItem(data)],
-    lut: Boolean(data.supplier.lutArn),
-    updatedAt: new Date().toISOString(),
-    ...base,
-  };
-}
-
-function blankItem(data: AppData): LineItem {
-  return { description: "", sac: data.settings.defaultSac, quantity: 1, rate: 0, gstRate: data.settings.defaultGstRate };
 }
 
 const num = (n: number) => (Number.isFinite(n) ? n : "");
@@ -420,7 +399,7 @@ export function InvoiceEditor({ data, initial, onSave, onNew, onDesignChange }: 
             </ul>
           </div>
         )}
-        <InvoicePreview inv={draft} c={computed} design={data.design} showBranding={data.settings.showBranding} />
+        <InvoicePreview inv={draft} c={computed} design={data.design} />
         <p className="desk-hint no-print">
           In the print dialog, set the destination to <strong>Save as PDF</strong>.
         </p>

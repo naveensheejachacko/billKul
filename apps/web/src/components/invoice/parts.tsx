@@ -11,7 +11,6 @@ import {
   type Invoice,
 } from "@billkul/core";
 import { useEffect, useState, type ReactNode } from "react";
-import { REPO_URL } from "../../config";
 import { formatDate } from "../../dates";
 import type { Design, HeaderLayout } from "../../storage";
 
@@ -498,8 +497,4 @@ export function Signature({ v }: { v: View }) {
       <p className="inv-sign-line">Authorised signatory</p>
     </div>
   );
-}
-
-export function MadeWith({ show }: { show: boolean }) {
-  return show ? <p className="inv-branding">Made with BillKul · {REPO_URL.replace(/^https?:\/\//, "")}</p> : null;
 }

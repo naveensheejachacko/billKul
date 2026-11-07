@@ -1,6 +1,5 @@
 import { formatINR } from "@billkul/core";
 import type { CSSProperties } from "react";
-import { REPO_URL } from "../../config";
 import { formatDateLong } from "../../dates";
 import type { TemplateId } from "../../storage";
 import {
@@ -8,7 +7,6 @@ import {
   BillTo,
   ItemsTable,
   Logo,
-  MadeWith,
   Meta,
   Notes,
   Qr,
@@ -40,12 +38,11 @@ export const COLOR_PRESETS: { name: string; value: string }[] = [
 
 interface TemplateProps {
   v: View;
-  showBranding: boolean;
   style: CSSProperties;
 }
 
 /** Name on the left, document title on the right, details strip below. */
-function Classic({ v, showBranding, style }: TemplateProps) {
+function Classic({ v, style }: TemplateProps) {
   return (
     <article className="paper t-classic" style={style}>
       <header className="cl-head">
@@ -73,13 +70,12 @@ function Classic({ v, showBranding, style }: TemplateProps) {
         </div>
         <Signature v={v} />
       </footer>
-      <MadeWith show={showBranding} />
     </article>
   );
 }
 
 /** Leads with what the client cares about: how much, and by when. */
-function Modern({ v, showBranding, style }: TemplateProps) {
+function Modern({ v, style }: TemplateProps) {
   const { inv, c } = v;
   const s = inv.supplier;
   const total = formatINR(c.grandTotalPaise);
@@ -153,14 +149,13 @@ function Modern({ v, showBranding, style }: TemplateProps) {
           <span className="mono">{inv.number}</span> · {total}
           {due ? ` due ${due}` : ""}
         </p>
-        {showBranding && <p>Made with BillKul · {REPO_URL.replace(/^https?:\/\//, "")}</p>}
       </footer>
     </article>
   );
 }
 
 /** Centered letterhead, lots of air, one big number. */
-function Minimal({ v, showBranding, style }: TemplateProps) {
+function Minimal({ v, style }: TemplateProps) {
   return (
     <article className="paper t-minimal" style={style}>
       <header className="mn-head">
@@ -191,13 +186,12 @@ function Minimal({ v, showBranding, style }: TemplateProps) {
         </div>
         <Signature v={v} />
       </footer>
-      <MadeWith show={showBranding} />
     </article>
   );
 }
 
 /** The ruled-box layout Indian accountants are used to, with per-line tax columns. */
-function Boxed({ v, showBranding, style }: TemplateProps) {
+function Boxed({ v, style }: TemplateProps) {
   return (
     <article className="paper t-boxed" style={style}>
       <div className="bx">
@@ -241,7 +235,6 @@ function Boxed({ v, showBranding, style }: TemplateProps) {
           </div>
         </div>
       </div>
-      <MadeWith show={showBranding} />
     </article>
   );
 }

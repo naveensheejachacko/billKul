@@ -111,7 +111,6 @@
 .inv-notes { margin-top: 10px !important; color: var(--p-ink-2); max-width: 300px; }
 .inv-sign { min-width: 190px; text-align: right; }
 .inv-sign-line { margin-top: 44px !important; padding-top: 6px; border-top: 1px solid var(--p-line); font-size: 11px; color: var(--p-ink-3); }
-.inv-branding { margin-top: 28px !important; text-align: center; font-size: 9.5px; color: #aaa69e; }
 
 /* ----- Logo arrangements (SupplierHeader) ----- */
 .sh-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
@@ -292,7 +291,6 @@
 .bx-pay { display: flex; gap: 16px; align-items: flex-start; }
 .bx-signcell { display: flex; align-items: flex-end; justify-content: flex-end; }
 .t-boxed .inv-sign-line { margin-top: 56px !important; }
-.t-boxed .inv-branding { margin-top: 14px !important; }
 
 /* ----- Small screens (screen only: the printed page must keep the full layout) ----- */
 @media screen and (max-width: 1150px) {
