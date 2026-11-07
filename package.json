@@ -1,0 +1,19 @@
+{
+  "name": "billkul",
+  "private": true,
+  "description": "Free, open-source GST invoice generator for Indian freelancers",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @billkul/web",
+    "build": "npm run build -w @billkul/web",
+    "test": "npm test -w @billkul/core",
+    "typecheck": "tsc -p packages/core && tsc -p apps/web"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

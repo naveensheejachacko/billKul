@@ -1,0 +1,326 @@
+/* The invoice is always paper-white, whatever the app theme.
+   --brand, --brand-ink and --brand-text are set inline per invoice. */
+
+.paper {
+  --p-ink: #1a1917;
+  --p-ink-2: #55524c;
+  --p-ink-3: #8b877f;
+  --p-line: #e4e1db;
+  --brand: #1a1917;
+  --brand-ink: #fff;
+  --brand-text: #1a1917;
+  --brand-tint: color-mix(in srgb, var(--brand) 7%, #fff);
+  --brand-rule: color-mix(in srgb, var(--brand) 20%, #fff);
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 794px; /* A4 at 96dpi */
+  min-height: 1123px;
+  margin: 0 auto;
+  padding: 56px 60px 40px;
+  background: #fff;
+  color: var(--p-ink);
+  font-size: 12.5px;
+  line-height: 1.5;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+.paper p { margin: 0; }
+.paper .mono { font-size: 0.94em; }
+.paper .is-placeholder { color: var(--p-ink-3); }
+.inv-dim { color: var(--p-ink-3); font-weight: 400; }
+.inv-k { font-size: 0.9em; color: var(--p-ink-3); }
+.inv-label { font-size: 11px; color: var(--p-ink-3); margin-bottom: 3px !important; }
+
+/* ----- Shared parts ----- */
+.inv-logo {
+  display: block;
+  height: var(--logo-h, 52px);
+  width: auto;
+  max-width: 280px;
+  object-fit: contain;
+  object-position: left center;
+  margin-bottom: 12px;
+}
+.inv-name { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px !important; }
+.inv-supplier p, .inv-taxids p { color: var(--p-ink-2); }
+.inv-legalname { font-weight: 600; color: var(--p-ink) !important; }
+.inv-taxids .mono { color: var(--p-ink); }
+.inv-title { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.015em; color: var(--brand-text); }
+
+.inv-billto p { color: var(--p-ink-2); }
+.inv-billto .inv-label { color: var(--p-ink-3); }
+.inv-client { font-size: 14px; font-weight: 600; color: var(--p-ink) !important; }
+
+.inv-items, .inv-taxsum { width: 100%; border-collapse: collapse; }
+.inv-items th, .inv-taxsum th {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--p-ink-3);
+  text-align: left;
+  padding: 0 8px 7px;
+  border-bottom: 1px solid var(--brand);
+}
+.inv-items td { padding: 10px 8px; border-bottom: 1px solid var(--p-line); vertical-align: top; }
+.inv-items th:first-child, .inv-items td:first-child, .inv-taxsum th:first-child, .inv-taxsum td:first-child { padding-left: 0; }
+.inv-items th:last-child, .inv-items td:last-child, .inv-taxsum th:last-child, .inv-taxsum td:last-child { padding-right: 0; }
+.inv-items .num, .inv-taxsum .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.inv-items .c-no { width: 22px; color: var(--p-ink-3); }
+.inv-items .c-desc { width: 40%; }
+.inv-rate { display: block; font-size: 10px; color: var(--p-ink-3); }
+
+.inv-sum { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; margin-top: 18px; }
+.inv-words { flex: 1; max-width: 360px; }
+.inv-declaration {
+  margin-top: 14px !important;
+  padding: 8px 10px;
+  border: 1px solid var(--p-ink);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.inv-totals { border-collapse: collapse; min-width: 250px; }
+.inv-totals th { text-align: left; font-weight: 400; color: var(--p-ink-2); padding: 3px 0; }
+.inv-totals td { text-align: right; padding: 3px 0 3px 24px; font-variant-numeric: tabular-nums; }
+.inv-totals tr:nth-last-child(2) th, .inv-totals tr:nth-last-child(2) td { padding-bottom: 8px; }
+.inv-totals .is-total th, .inv-totals .is-total td {
+  padding-top: 10px;
+  border-top: 1px solid var(--brand);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--p-ink);
+}
+.inv-totals .is-total td { color: var(--brand-text); }
+
+.inv-taxsum { margin-top: 30px; font-size: 11.5px; }
+.inv-taxsum th { border-bottom-color: var(--p-line); }
+.inv-taxsum td { padding: 6px 8px; border-bottom: 1px solid var(--p-line); }
+
+.inv-foot { margin-top: auto; padding-top: 40px; display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
+.inv-pay { display: flex; gap: 24px; align-items: flex-start; }
+.inv-qr { display: flex; flex-direction: column; gap: 6px; margin: 0; }
+.inv-qr-img { width: 100px; height: 100px; }
+.inv-qr-img svg { display: block; width: 100%; height: 100%; }
+.inv-qr figcaption { display: flex; flex-direction: column; font-size: 10.5px; color: var(--p-ink-3); }
+.inv-qr figcaption .mono { color: var(--p-ink-2); }
+.inv-bank { display: grid; grid-template-columns: auto 1fr; gap: 1px 14px; margin: 0; }
+.inv-bank > div { display: contents; }
+.inv-bank dt { color: var(--p-ink-3); }
+.inv-bank dd { margin: 0; }
+.inv-notes { margin-top: 10px !important; color: var(--p-ink-2); max-width: 300px; }
+.inv-sign { min-width: 190px; text-align: right; }
+.inv-sign-line { margin-top: 44px !important; padding-top: 6px; border-top: 1px solid var(--p-line); font-size: 11px; color: var(--p-ink-3); }
+.inv-branding { margin-top: 28px !important; text-align: center; font-size: 9.5px; color: #aaa69e; }
+
+/* ----- Logo arrangements (SupplierHeader) ----- */
+.sh-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.sh-row .inv-logo, .sh-logo-side > .inv-logo { margin: 0; }
+.sh-row .inv-name { margin: 0 !important; }
+.sh-logo-side { display: flex; align-items: flex-start; gap: 16px; text-align: left; }
+.sh-logo-top .inv-logo { margin-bottom: 10px; }
+
+/* ----- Classic ----- */
+.cl-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; padding-bottom: 28px; }
+.cl-titleblock { text-align: right; }
+.cl-titleblock .inv-title { margin-bottom: 8px; }
+.cl-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+  gap: 12px;
+  margin: 0 0 26px;
+  padding: 12px 0;
+  border-top: 2px solid var(--brand);
+  border-bottom: 1px solid var(--p-line);
+}
+.cl-meta dt { font-size: 11px; color: var(--p-ink-3); }
+.cl-meta dd { margin: 1px 0 0; font-weight: 500; }
+.t-classic .inv-billto { margin-bottom: 28px; }
+
+/* ----- Modern: amount due first ----- */
+.t-modern { padding: 48px 60px 32px; }
+.mo-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.t-modern .inv-title { font-size: 24px; }
+.mo-number { margin-top: 2px !important; font-size: 13px !important; color: var(--p-ink-2); }
+.mo-brand { display: flex; align-items: center; gap: 10px; }
+.mo-brand.is-stacked { flex-direction: column; align-items: flex-end; gap: 6px; }
+.mo-logo { height: calc(var(--logo-h, 52px) * 0.85); margin: 0; object-position: right center; }
+.mo-brandname { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+.mo-hero { margin-top: 24px; }
+.mo-amount {
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-text);
+}
+.mo-due { margin-top: 6px !important; font-size: 14px; color: var(--p-ink-2); }
+.mo-parties {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.1fr;
+  gap: 28px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--p-line);
+}
+.mo-parties .inv-taxids { margin-top: 6px; }
+.mo-meta { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 0; }
+.mo-meta > div { display: contents; }
+.mo-meta dt { color: var(--p-ink-3); }
+.mo-meta dd { margin: 0; text-align: right; }
+.inv-items.is-stacked { margin-top: 24px; }
+.inv-items.is-stacked th { border-bottom-color: var(--p-line); }
+.inv-items.is-stacked td { padding: 9px 8px; border-bottom-color: #f0eee9; }
+.inv-items.is-stacked .c-desc { width: 56%; font-weight: 500; }
+.inv-sub { display: block; margin-top: 2px; font-size: 11px; font-weight: 400; color: var(--p-ink-3); }
+.mo-sum { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; margin-top: 14px; }
+.t-modern .inv-words { font-size: 11.5px; max-width: 340px; }
+.t-modern .inv-taxsum { margin-top: 18px; }
+.t-modern .inv-totals .is-total th, .t-modern .inv-totals .is-total td { border-top-color: var(--p-ink); }
+.mo-end { margin-top: auto; padding-top: 20px; display: flex; align-items: flex-end; gap: 24px; }
+.mo-pay {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--brand-tint);
+  border: 1px solid var(--brand-rule);
+}
+.mo-qr { flex: none; width: 92px; height: 92px; padding: 5px; background: #fff; border-radius: 6px; }
+.mo-qr svg { display: block; width: 100%; height: 100%; }
+.mo-pay-title { font-size: 12.5px; font-weight: 600; }
+.mo-upi { margin-left: 8px; font-weight: 400; color: var(--p-ink-2); }
+.mo-pay .inv-bank { grid-template-columns: repeat(2, auto); justify-content: start; gap: 6px 24px; margin-top: 8px; }
+.mo-pay .inv-bank > div { display: block; }
+.mo-pay .inv-bank dt { font-size: 10.5px; }
+.mo-pay .inv-notes { margin-top: 8px !important; max-width: none; }
+.t-modern .inv-sign { flex: none; }
+.t-modern .inv-sign-line { margin-top: 36px !important; }
+.mo-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--p-line);
+  font-size: 10.5px;
+  color: var(--p-ink-3);
+}
+.mo-foot .mono { color: var(--p-ink-2); }
+
+/* ----- Minimal ----- */
+.t-minimal { padding: 64px 72px 40px; }
+.mn-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 32px;
+  margin-bottom: 36px;
+  border-bottom: 1px solid var(--p-line);
+}
+.mn-head .inv-logo { height: calc(var(--logo-h, 52px) * 1.08); object-position: center; }
+.mn-head .sh-row { justify-content: center; }
+.mn-head .inv-name { font-size: 22px; }
+.mn-head .inv-taxids { display: flex; gap: 18px; justify-content: center; margin-top: 6px; }
+.mn-intro { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; margin-bottom: 36px; }
+.mn-doc { text-align: right; }
+.mn-kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-text);
+}
+.mn-number { font-size: 20px !important; font-weight: 500; margin: 2px 0 10px !important; }
+.mn-meta { display: grid; grid-template-columns: auto auto; justify-content: end; gap: 2px 14px; margin: 0; }
+.mn-meta > div { display: contents; }
+.mn-meta dt { color: var(--p-ink-3); text-align: right; }
+.mn-meta dd { margin: 0; text-align: right; }
+.t-minimal .inv-items th { border-bottom-color: var(--p-line); }
+.t-minimal .inv-items td { border-bottom-color: #f0eee9; }
+.t-minimal .inv-totals .is-total th, .t-minimal .inv-totals .is-total td { border-top-color: var(--p-line); }
+.t-minimal .inv-totals .is-total td { font-size: 22px; letter-spacing: -0.01em; }
+
+/* ----- GST boxed ----- */
+.t-boxed { padding: 40px 40px 32px; font-size: 11.5px; }
+.bx { border: 1px solid var(--p-ink); }
+.bx-title {
+  padding: 7px;
+  background: var(--brand);
+  color: var(--brand-ink);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.bx-row { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--p-ink); }
+.bx-row.bx-one { grid-template-columns: 1fr; }
+.bx-row > * + * { border-left: 1px solid var(--p-ink); }
+.bx-cell { min-width: 0; padding: 10px 12px; }
+.t-boxed .inv-logo { height: calc(var(--logo-h, 52px) * 0.85); margin-bottom: 8px; }
+.t-boxed .inv-name { font-size: 16px; }
+.t-boxed .inv-taxids { margin-top: 6px; }
+.bx-meta { display: grid; grid-template-columns: 1fr 1fr; align-content: start; margin: 0; }
+.bx-meta > div { padding: 7px 12px; border-bottom: 1px solid var(--p-line); }
+.bx-meta > div:nth-child(even) { border-left: 1px solid var(--p-line); }
+.bx-meta > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.bx-meta dt { font-size: 10.5px; color: var(--p-ink-3); }
+.bx-meta dd { margin: 0; font-weight: 500; }
+.t-boxed .inv-items, .t-boxed .inv-taxsum { border-style: hidden; border-top: 1px solid var(--p-ink); margin: 0; }
+.t-boxed .inv-items th, .t-boxed .inv-items td, .t-boxed .inv-taxsum th, .t-boxed .inv-taxsum td {
+  padding: 6px 7px;
+  border: 1px solid #cfcbc3;
+}
+.t-boxed .inv-items th, .t-boxed .inv-taxsum th {
+  background: var(--brand-tint);
+  color: var(--p-ink);
+  font-weight: 600;
+  border-bottom: 1px solid var(--p-ink);
+}
+.t-boxed .inv-items .c-desc { width: auto; }
+.t-boxed .inv-items tfoot td { font-weight: 600; background: #faf9f7; border-top: 1px solid var(--p-ink); }
+.t-boxed .inv-taxsum { border-top: 0; font-size: 11px; }
+.t-boxed .inv-words { max-width: none; }
+.t-boxed .inv-totals { width: 100%; min-width: 0; }
+.t-boxed .inv-totals td { padding-left: 12px; }
+.bx-pay { display: flex; gap: 16px; align-items: flex-start; }
+.bx-signcell { display: flex; align-items: flex-end; justify-content: flex-end; }
+.t-boxed .inv-sign-line { margin-top: 56px !important; }
+.t-boxed .inv-branding { margin-top: 14px !important; }
+
+/* ----- Small screens (screen only: the printed page must keep the full layout) ----- */
+@media screen and (max-width: 1150px) {
+  .paper { padding: 44px 40px 32px; }
+}
+
+@media screen and (max-width: 900px) {
+  .paper { min-height: 0; overflow-x: auto; }
+  .paper { padding: 28px 20px; }
+  .t-boxed { padding: 16px; }
+}
+
+@media screen and (max-width: 640px) {
+  .cl-head, .inv-sum, .inv-foot, .inv-pay, .mn-intro, .mo-sum, .mo-pay, .mo-end, .mo-foot { flex-direction: column; align-items: stretch; gap: 20px; }
+  .mo-parties { grid-template-columns: 1fr; gap: 18px; }
+  .mo-amount { font-size: 30px; }
+  .sh-logo-side { flex-direction: column; gap: 8px; }
+  .cl-titleblock, .inv-sign, .mn-doc { text-align: left; }
+  .mn-meta { justify-content: start; }
+  .mn-meta dt, .mn-meta dd { text-align: left; }
+  .inv-totals { width: 100%; }
+  .bx-row { grid-template-columns: 1fr; }
+  .bx-row > * + * { border-left: 0; border-top: 1px solid var(--p-ink); }
+  .bx-signcell { justify-content: flex-start; }
+}
+
+@media print {
+  .paper { max-width: none; min-height: 0; padding: 0; box-shadow: none; overflow: visible; }
+  /* Sidebar runs the full page height; a little under 269mm so it never spills onto page 2 */
+  .inv-items tr, .inv-foot, .inv-sum, .mo-sum, .mo-end, .mo-foot, .bx-row { break-inside: avoid; }
+}

@@ -72,4 +72,3 @@ If BillKul saves you time every month, [buy me a coffee ☕](https://buymeacoffe
 ## License
 
 MIT
-# billKul
