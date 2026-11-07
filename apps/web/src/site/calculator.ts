@@ -1,4 +1,4 @@
-import { formatINR, roundHalfUp, toPaise } from "@billkul/core";
+import { calculateGst, formatINR } from "@billkul/core";
 import { byId, segmented } from "./common";
 
 const amountInput = byId<HTMLInputElement>("amount");
@@ -17,21 +17,6 @@ function currentRate(): number {
   return Number.isFinite(custom) && custom >= 0 ? custom : presetRate;
 }
 
-export function splitGst(amountPaise: number, rate: number, direction: "add" | "remove", where: "intra" | "inter") {
-  let base: number;
-  let tax: number;
-  if (direction === "add") {
-    base = amountPaise;
-    tax = where === "intra" ? 2 * roundHalfUp((base * rate) / 200) : roundHalfUp((base * rate) / 100);
-  } else {
-    base = roundHalfUp((amountPaise * 100) / (100 + rate));
-    tax = amountPaise - base;
-  }
-  const cgst = where === "intra" ? Math.floor(tax / 2) : 0;
-  const sgst = where === "intra" ? tax - cgst : 0;
-  return { base, cgst, sgst, igst: where === "inter" ? tax : 0, tax, total: base + tax };
-}
-
 function render() {
   const amount = amountInput.valueAsNumber;
   const rate = currentRate();
@@ -39,7 +24,8 @@ function render() {
     rows.innerHTML = `<tr><th>Enter an amount and a rate between 0 and 100%</th><td></td></tr>`;
     return;
   }
-  const r = splitGst(toPaise(amount), rate, mode, supply);
+  const g = calculateGst(amount, rate, { inclusive: mode === "remove", interState: supply === "inter" });
+  const r = { base: g.taxablePaise, cgst: g.cgstPaise, sgst: g.sgstPaise, igst: g.igstPaise, tax: g.taxPaise, total: g.totalPaise };
   const line = (label: string, paise: number, cls = "") =>
     `<tr${cls ? ` class="${cls}"` : ""}><th>${label}</th><td>${formatINR(paise)}</td></tr>`;
   rows.innerHTML = [

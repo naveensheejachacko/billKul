@@ -1,23 +1,10 @@
-import { getState, gstinCheckChar, normalizeGstin, validateGstin } from "@billkul/core";
+import { PAN_HOLDER_TYPES, getState, gstinCheckChar, normalizeGstin, validateGstin } from "@billkul/core";
 import { byId, escapeHtml } from "./common";
 
 const input = byId<HTMLInputElement>("gstin");
 const verdict = byId("verdict");
 const partsWrap = byId("parts-wrap");
 const parts = byId("parts");
-
-const PAN_TYPES: Record<string, string> = {
-  P: "Individual",
-  C: "Company",
-  F: "Firm or LLP",
-  H: "Hindu Undivided Family",
-  A: "Association of persons",
-  T: "Trust",
-  B: "Body of individuals",
-  L: "Local authority",
-  J: "Artificial juridical person",
-  G: "Government",
-};
 
 function setVerdict(text: string, kind: "ok" | "bad" | "wait") {
   verdict.textContent = text;
@@ -41,7 +28,7 @@ function render() {
   if (gstin.length !== 15 || !/^[0-9A-Z]{15}$/.test(gstin)) return;
   const state = getState(gstin.slice(0, 2));
   const pan = gstin.slice(2, 12);
-  const panType = /^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan) ? PAN_TYPES[pan[3]] : undefined;
+  const panType = /^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan) ? PAN_HOLDER_TYPES[pan[3]] : undefined;
   const entity = gstin[12];
   const expected = gstinCheckChar(gstin.slice(0, 14));
   parts.innerHTML = [

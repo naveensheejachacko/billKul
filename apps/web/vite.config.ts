@@ -29,6 +29,9 @@ function site(): Plugin {
 
 export default defineConfig({
   plugins: [react(), site()],
+  // Use @billkul/core's TypeScript source directly (see "billkul-source" in its package.json),
+  // so the site builds without publishing or building the package first.
+  resolve: { conditions: ["billkul-source"] },
   optimizeDeps: { include: ["qrcode"] },
   build: {
     rollupOptions: {

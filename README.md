@@ -32,7 +32,7 @@ All businesses in the samples are fictional.
 ## Project layout
 
 ```
-packages/core   GST engine: pure TypeScript, fully tested, no UI
+packages/core   GST engine, published on npm as @billkul/core
 apps/web        React app (Vite), static and deployable anywhere
 packages/mcp    (coming) MCP server so Claude and other AI assistants can create invoices
 ```
@@ -50,20 +50,22 @@ npm run build      # static site in apps/web/dist
 
 Deploy `apps/web/dist` to Netlify, Vercel, Cloudflare Pages or GitHub Pages. It's just static files.
 
-## Using the engine directly
+## Use the GST engine in your own code
+
+The same tested engine is published on npm as [`@billkul/core`](packages/core): GSTIN and PAN validation, CGST/SGST/IGST calculation, full GST invoices (including exports under LUT), amount in words with lakh and crore, and UPI payment links and QR codes.
+
+```bash
+npm install @billkul/core
+```
 
 ```ts
-import { computeInvoice } from "@billkul/core";
+import { validateGstin, calculateGst, formatINR } from "@billkul/core";
 
-const result = computeInvoice({
-  number: "INV/26-27/001",
-  date: "2026-11-07",
-  supplier: { name: "Me", gstin: "32ABCDE1234F1Z9" },
-  client: { name: "Acme", gstin: "29PQRST5678K1ZY" },
-  items: [{ description: "Website", sac: "998314", quantity: 1, rate: 45000, gstRate: 18 }],
-});
-// result.supplyType === "inter", result.igstPaise === 810000, result.amountInWords === "Rupees Fifty Three Thousand One Hundred Only"
+validateGstin("27AAPFU0939F1ZV").stateName;      // "Maharashtra"
+formatINR(calculateGst(10000, 18).totalPaise);   // "₹11,800.00"
 ```
+
+See the [package README](packages/core#readme) for the full API.
 
 ## Disclaimer
 
