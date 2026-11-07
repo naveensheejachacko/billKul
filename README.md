@@ -2,7 +2,7 @@
 
 **Free, open-source GST invoices for Indian freelancers.** Runs entirely in your browser. No login, no server, nothing uploaded.
 
-<a href="https://buymeacoffee.com/your-username"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-☕-ffdd00?style=for-the-badge" alt="Buy me a coffee"></a>
+<a href="https://buymeacoffee.com/naveensheejachacko"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-☕-ffdd00?style=for-the-badge" alt="Buy me a coffee"></a>
 
 ## What it does
 
@@ -67,7 +67,7 @@ BillKul helps you make correct-looking invoices but it is not tax advice. Check 
 
 ## Support
 
-If BillKul saves you time every month, [buy me a coffee ☕](https://buymeacoffee.com/your-username). It keeps the project free.
+If BillKul saves you time every month, [buy me a coffee ☕](https://buymeacoffee.com/naveensheejachacko). It keeps the project free.
 
 ## License
 
