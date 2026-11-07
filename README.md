@@ -2,6 +2,8 @@
 
 **Free, open-source GST invoices for Indian freelancers.** Runs entirely in your browser. No login, no server, nothing uploaded.
 
+**Try it: [bill-kul.vercel.app](https://bill-kul.vercel.app)**
+
 <a href="https://buymeacoffee.com/naveensheejachacko"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-☕-ffdd00?style=for-the-badge" alt="Buy me a coffee"></a>
 
 ## What it does

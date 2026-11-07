@@ -231,13 +231,16 @@ input[type="checkbox"] { width: 16px; height: 16px; margin: 2px 0 0; accent-colo
 }
 .support:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
+/* Neutral by default: a welcome note shouldn't look like something went wrong.
+   Only real problems (.is-error) get the red wash. */
 .notice {
   padding: 9px 24px;
   font-size: 13px;
-  background: var(--accent-wash);
+  color: var(--ink-2);
+  background: var(--surface);
   border-bottom: 1px solid var(--line);
 }
-.notice.is-error { color: var(--danger); }
+.notice.is-error { color: var(--danger); background: var(--accent-wash); }
 
 .page { flex: 1; width: 100%; max-width: 980px; margin: 0 auto; padding: 36px 24px 56px; }
 .page-head { margin-bottom: 28px; }
